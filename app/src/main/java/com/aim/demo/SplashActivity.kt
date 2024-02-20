@@ -23,8 +23,22 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.biometric.BiometricManager
+import androidx.biometric.BiometricPrompt
+import androidx.constraintlayout.widget.ConstraintSet
 import androidx.core.content.ContextCompat
 import com.aim.demo.databinding.ActivitySplashBinding
+import com.dr.mgr.session.Constants
+import com.dr.mgr.session.SharedHelper
+import com.dr.mgr.utils.BaseUtils
+import com.dr.mgr.utils.BaseUtils.decrypt
+import com.dr.mgr.utils.BaseUtils.encrypt
+import com.dr.mgr.utils.DialogUtils
+import com.dr.mgr.utils.UiUtils
+import com.facebook.CallbackManager
+import com.google.android.gms.auth.api.phone.SmsRetriever
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.common.api.ApiException
 import java.util.*
 import java.util.concurrent.Executor
 import kotlin.math.roundToInt
@@ -36,7 +50,6 @@ class SplashActivity : AppCompatActivity() {
     lateinit var sharedHelper:SharedHelper
     var page = 0
     var key = -1
-    private val smsRetriever: SMSBroadcastReceiver = SMSBroadcastReceiver()
     private val RC_SIGN_IN = 9001
     private val SMS_CONSENT_REQUEST = 9002
     lateinit var callbackManager: CallbackManager
@@ -50,7 +63,6 @@ class SplashActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-        UiUtils. notificationBar(this,null,R.color.colorPrimary)
         super.onCreate(savedInstanceState)
         binding = ActivitySplashBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -74,13 +86,6 @@ class SplashActivity : AppCompatActivity() {
         binding.animViewMain.setAnimation("splash_new.json")
         binding.animViewMain.playAnimation()
         key = intent.getIntExtra(Constants.IntentKeys.KEY,-1)
-
-        binding.animViewMain.setOnLongClickListener{
-            if(BuildConfig.DEBUG){
-                ApiDataDialog(this).show(this)
-            }
-            return@setOnLongClickListener true
-        }
         
         if(key == 0){
             loadPage1()
@@ -107,34 +112,7 @@ class SplashActivity : AppCompatActivity() {
                 override fun onAnimationRepeat(p0: Animator) {
                     if(count == 1){
                         count = 2
-                        ApiConnection.getInstance().checkAppVersion(this@SplashActivity).observe(this@SplashActivity) {
-                            it?.let {
-                                it.success.let { success ->
-                                    if (success) {
-                                        if(it.result != null && BaseUtils.nullCheckerBoolean(it.result!!.isForceUpdate!!)){
-                                            if(BaseUtils.nullCheckerStr(it.result!!.appVersion).isNotEmpty()){
-                                                if(BaseUtils.isUpdateAvailable(it.result!!.appVersion!!)){
-                                                    BaseUtils.openPlayStore(this@SplashActivity)
-                                                }
-                                                else{
-                                                    checkLogin()
-                                                }
-                                            }
-                                            else{
-                                                checkLogin()
-                                            }
-                                        }
-                                        else{
-                                            checkLogin()
-                                        }
-                                    }
-                                    else {
-                                        UiUtils.showSnack(it.msg, binding.root)
-                                        checkLogin()
-                                    }
-                                }
-                            }
-                        }
+                        checkLogin()
                     }
                     else if(count == 0){
                         count = 1
@@ -175,33 +153,8 @@ class SplashActivity : AppCompatActivity() {
                 UiUtils.showSnack("Please Enter Valid Password",binding.root)
             }
             else{
-                DialogUtils.showLoader(this)
-                ApiConnection.getInstance().login(this,binding.edtMail.text.toString(),binding.edtPassword.text.toString()).observe(this) {
-                    DialogUtils.dismissLoader()
-                    it?.let {
-                        it.success.let { success ->
-                            if (success) {
-                                sharedHelper.loggedIn = true
-                                sharedHelper.token = it.result.tokens.accessToken!!
-                                sharedHelper.name = BaseUtils.nullCheckerStr(it.result.user.firstName)+" "+BaseUtils.nullCheckerStr(it.result.user.lastName)
-                                sharedHelper.id = it.result.user._id!!
-                                sharedHelper.role = it.result.user.roleType!!
-                                sharedHelper.email = BaseUtils.nullCheckerStr(it.result.user.email)
-                                sharedHelper.mobileNumber = BaseUtils.nullCheckerStr(it.result.user.mobile)
-                                if(it.result.user.img_url != null){
-                                    sharedHelper.imgUrl = it.result.user.img_url!!.toString()
-                                }
-                                else{
-                                    sharedHelper.imgUrl = ""
-                                }
-                                moveNext()
-                            }
-                            else {
-                                UiUtils.showSnack(it.msg, binding.root)
-                            }
-                        }
-                    }
-                }
+                sharedHelper.loggedIn = true
+                moveNext()
             }
         }
 
@@ -280,7 +233,7 @@ class SplashActivity : AppCompatActivity() {
         loadOtp()
         loadCode1()
         loadCode2()
-        whatsappLogin()
+       // whatsappLogin()
         // facebookLogin()
        // googleLogin()
        // hari()
@@ -303,60 +256,12 @@ class SplashActivity : AppCompatActivity() {
         timer.start()
     }
     private fun sendOtp(){
-        DialogUtils.showLoader(this)
-        ApiConnection.getInstance().sendOTPMobile(this,binding.edtPhone.text.toString()).observe(this) {
-            DialogUtils.dismissLoader()
-            it?.let {
-                it.success.let { success ->
-                    if (success) {
-                        UiUtils.showSnack(it.msg, binding.root)
-                        loadPage2(binding.edtPhone.text.toString())
-                    }
-                    else {
-                        UiUtils.showSnack(it.msg, binding.root)
-                    }
-                }
-            }
-        }
+        loadPage2(binding.edtPhone.text.toString())
     }
 
     private fun verifyOtp(otp:String){
-        DialogUtils.showLoader(this)
-        ApiConnection.getInstance().verifyOTPMobile(this,binding.edtPhone.text.toString(),otp).observe(this) {
-            DialogUtils.dismissLoader()
-            it?.let {
-                it.success.let { success ->
-                    if (success) {
-                        UiUtils.showSnack(it.msg, binding.root)
-                        sharedHelper.loggedIn = true
-                        sharedHelper.token = it.result!!.tokens!!.accessToken!!
-                        sharedHelper.id = it.result!!.user!!._id!!
-                        sharedHelper.role = it.result!!.user!!.roleType!!
-                        if(it.result!!.user!!.img_url != null){
-                            sharedHelper.imgUrl = it.result!!.user!!.img_url!!.toString()
-                        }
-                        else{
-                            sharedHelper.imgUrl = ""
-                        }
-
-                        if(BaseUtils.nullCheckerStr(it.result!!.user!!.name).isNotEmpty()){
-                            sharedHelper.name = it.result!!.user!!.name!!
-                        }
-                        else{
-                            sharedHelper.name = it.result!!.user!!.roleType!!
-                        }
-                        sharedHelper.email = BaseUtils.nullCheckerStr(it.result!!.user!!.email)
-                        sharedHelper.mobileNumber = BaseUtils.nullCheckerStr(it.result!!.user!!.mobile)
-
-
-                        loadSubPage2()
-                    }
-                    else {
-                        UiUtils.showSnack(it.msg, binding.root)
-                    }
-                }
-            }
-        }
+        sharedHelper.loggedIn = true
+        loadSubPage2()
     }
     
     private fun loadOtp(){
@@ -869,7 +774,7 @@ class SplashActivity : AppCompatActivity() {
 
         // creating a variable for our promptInfo
         // BIOMETRIC DIALOG
-        val promptInfo = PromptInfo.Builder().setTitle("MGR").setDescription("Use your fingerprint to login ").setNegativeButtonText("Cancel").build()
+        val promptInfo = BiometricPrompt.PromptInfo.Builder().setTitle("MGR").setDescription("Use your fingerprint to login ").setNegativeButtonText("Cancel").build()
 
         binding.next2.setOnClickListener {
             if (isBioMetric) {
@@ -890,7 +795,7 @@ class SplashActivity : AppCompatActivity() {
 
     fun checkLogin(){
         if(sharedHelper.loggedIn && (sharedHelper.isBioMetric || sharedHelper.role == "GUEST")){
-            BaseUtils.startActivity(this@SplashActivity,AuthActivity(),null,true)
+           // BaseUtils.startActivity(this@SplashActivity,AuthActivity(),null,true)
         }
         else if(sharedHelper.loggedIn){
             moveNext()
@@ -969,99 +874,20 @@ class SplashActivity : AppCompatActivity() {
             addAction(SmsRetriever.SMS_RETRIEVED_ACTION)
         }
         registerReceiver(smsRetriever, intentFilter)*/
-        registerBroadcastReceiver()
+       // registerBroadcastReceiver()
     }
 
     override fun onStop() {
         try{
-            unregisterReceiver(smsRetriever)
+           // unregisterReceiver(smsRetriever)
         } catch (e: Exception){
         }
         super.onStop()
     }
 
-    private fun registerBroadcastReceiver() {
-        smsRetriever.smsBroadcastReceiverListener = object : SMSBroadcastReceiver.SmsBroadcastReceiverListener {
-            override fun onSuccess(intent: Intent) {
-                Log.d("cvb1","pass1")
-                someActivityResultLauncher.launch(intent)
-              //  startActivityForResult(intent, SMS_CONSENT_REQUEST)
-            }
-
-            override fun onFailure() {
-                Log.d("cvb1","fail1")
-            }
-        }
-
-        val intentFilter = IntentFilter(SmsRetriever.SMS_RETRIEVED_ACTION)
-        registerReceiver(smsRetriever, intentFilter)
-    }
     private fun startSmsUserConsent() {
         val client = SmsRetriever.getClient(this)
         client.startSmsUserConsent(null).addOnSuccessListener {}.addOnFailureListener {}
-    }
-
-    private fun whatsappLogin(){
-        // Add this to your activity
-        OtplessManager.getInstance().init(this)
-        val button = binding.whatsappLogin as WhatsappLoginButton
-        button.setResultCallback { data: OtplessResponse? ->
-            if (data != null && data.waId != null){
-                TempSingleton.getInstance().isWhatsApp = true
-                ApiConnection.getInstance().sendOTPWhatsapp(this,data.waId).observe(this) {
-                    it?.let {
-                        it.ok.let { ok ->
-                            if (ok) {
-                                UiUtils.showSnack(it.user.waNumber+" "+it.user.waName,binding.root)
-                            }
-                            else {
-                                UiUtils.showSnack(it.msg, binding.root)
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        binding.imgWhatsapp.setOnClickListener {
-            button.performClick()
-        }
-    }
-
-    fun facebookLogin(){
-        callbackManager =  CallbackManager.Factory.create()
-        binding.fbLoginPerform.apply {
-           // fragment = (this@LoginFragment)
-            setPermissions(listOf("email, public_profile"))
-            registerCallback(callbackManager, object : FacebookCallback<LoginResult?> {
-                override fun onSuccess(loginResult: LoginResult?) {
-                   // loginViewModel.updateAuthTokenFromServer("Facebook", loginResult?.accessToken?.token.toString())
-                }
-
-                override fun onCancel() {
-                   // pbLoading.visibility = View.GONE
-                }
-
-                override fun onError(exception: FacebookException) {
-                   // pbLoading.visibility = View.GONE
-                }
-            })
-        }
-
-        binding.imgFacebook.setOnClickListener {
-            binding.fbLoginPerform.performClick()
-           // pbLoading.visibility = View.VISIBLE
-        }
-    }
-
-    fun googleLogin(){
-        binding.imgGoogle.setOnClickListener {
-            //pbLoading.visibility = View.VISIBLE
-            val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(Constants.ConstantsHelper.GSO_REQ_ID_TOKEN)
-                .requestEmail()
-                .build()
-            startActivityForResult(GoogleSignIn.getClient(this, gso).signInIntent, RC_SIGN_IN)
-        }
     }
 
     @RequiresApi(Build.VERSION_CODES.O)

@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">demo</string>
+    <string name="resend_otp">Resend Otp</string>
+    <string name="resend_in">Resend in</string>
 </resources>
