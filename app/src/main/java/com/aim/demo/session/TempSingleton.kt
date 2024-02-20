@@ -1,6 +1,5 @@
 package com.dr.mgr.session
 
-import com.dr.mgr.models.FileFacer
 import okhttp3.MultipartBody
 
 class TempSingleton private constructor() {
@@ -26,7 +25,6 @@ class TempSingleton private constructor() {
     var isFile: Boolean = false
     var files: String = ""
 
-    var fileList:ArrayList<FileFacer> = ArrayList()
 
     var isCommentUpdate: Boolean = false
     var isUserPost: Boolean = false

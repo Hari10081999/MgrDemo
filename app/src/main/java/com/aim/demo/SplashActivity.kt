@@ -5,7 +5,6 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.KeyguardManager
 import android.content.Intent
-import android.content.IntentFilter
 import android.os.Build
 import android.os.Bundle
 import android.os.CountDownTimer
@@ -33,7 +32,6 @@ import com.dr.mgr.session.SharedHelper
 import com.dr.mgr.utils.BaseUtils
 import com.dr.mgr.utils.BaseUtils.decrypt
 import com.dr.mgr.utils.BaseUtils.encrypt
-import com.dr.mgr.utils.DialogUtils
 import com.dr.mgr.utils.UiUtils
 import com.facebook.CallbackManager
 import com.google.android.gms.auth.api.phone.SmsRetriever

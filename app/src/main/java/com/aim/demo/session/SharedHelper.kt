@@ -1,8 +1,6 @@
 package com.dr.mgr.session
 
 import android.content.Context
-import com.dr.mgr.models.SampleJson
-import com.dr.mgr.response.GetRoleScopeResponse
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 
@@ -376,35 +374,4 @@ class SharedHelper(context: Context) {
             sharedPreference.putStringSet(Constants.SessionKeys.COOKIES, value)
         }
 
-    var sampleList: ArrayList<SampleJson.Sample>
-        get() : ArrayList<SampleJson.Sample> {
-            val myType = object : TypeToken<List<SampleJson.Sample>>() {}.type
-            val vsl = sharedPreference.getKey(Constants.SessionKeys.BRAND_LIST)
-
-            if (vsl == "") {
-                return ArrayList()
-            }
-            val logs: ArrayList<SampleJson.Sample> = Gson().fromJson(vsl, myType)
-            return logs as ArrayList<SampleJson.Sample>
-        }
-        set(value) {
-            val jsonString = Gson().toJson(value)
-            sharedPreference.putKey(Constants.SessionKeys.BRAND_LIST, jsonString)
-        }
-
-    var roleScope: GetRoleScopeResponse.Result
-        get() : GetRoleScopeResponse.Result {
-            val myType = object : TypeToken<GetRoleScopeResponse.Result>() {}.type
-            val vsl = sharedPreference.getKey(Constants.SessionKeys.PRODUCT_UNIT_LIST)
-
-            if (vsl == "") {
-                return GetRoleScopeResponse.Result()
-            }
-            val logs: GetRoleScopeResponse.Result = Gson().fromJson(vsl, myType)
-            return logs as GetRoleScopeResponse.Result
-        }
-        set(value) {
-            val jsonString = Gson().toJson(value)
-            sharedPreference.putKey(Constants.SessionKeys.PRODUCT_UNIT_LIST, jsonString)
-        }
 }

@@ -26,17 +26,14 @@ import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.graphics.BlendModeColorFilterCompat
 import androidx.core.graphics.BlendModeCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.aim.demo.BaseActivity
+import com.aim.demo.R
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.Target
-import com.dr.mgr.BuildConfig
-import com.dr.mgr.R
-import com.dr.mgr.activity.BaseActivity
-import com.dr.mgr.interfaces.AnimationCallBack
-import com.dr.mgr.interfaces.OnClickListener
 import com.dr.mgr.session.Constants
 import com.github.twocoffeesoneteam.glidetovectoryou.GlideToVectorYou
 import com.google.android.material.button.MaterialButton
@@ -85,22 +82,6 @@ object UiUtils {
         })
         view.startAnimation(anim)
     }
-    fun animationWithCallback(context: Context, view: View, type: Int, callBack: AnimationCallBack){
-        val anim: Animation = AnimationUtils.loadAnimation(context,type)
-        anim.setAnimationListener(object : Animation.AnimationListener {
-            override fun onAnimationStart(p0: Animation?) {
-                callBack.onAnimationStart()
-            }
-
-            override fun onAnimationEnd(p0: Animation?) {
-                callBack.onAnimationEnd()
-            }
-            override fun onAnimationRepeat(p0: Animation?) {
-                callBack.onAnimationRepeat()
-            }
-        })
-        view.startAnimation(anim)
-    }
     fun showSnack(content: String, context: Context) {
         val view = (context as BaseActivity).view
         BaseUtils.hideForceKeyboard(view)
@@ -109,26 +90,6 @@ object UiUtils {
     fun showSnack(content: String, view: View) {
         BaseUtils.hideForceKeyboard(view)
         Snackbar.make(view, content, Snackbar.LENGTH_SHORT).show()
-    }
-    fun showSnack(view: View, content: String,onClickListener: OnClickListener){
-        var isUndo = false
-        Snackbar.make(view, content, Snackbar.LENGTH_LONG)
-            .setAction("UNDO") {
-                isUndo = true
-                onClickListener.onClickItem(0)
-            }
-            .addCallback(object : Callback() {
-                override fun onShown(sb: Snackbar?) {
-
-                }
-
-                override fun onDismissed(transientBottomBar: Snackbar?, @DismissEvent event: Int) {
-                    if(!isUndo){
-                        onClickListener.onClickItem(1)
-                    }
-                }
-            }).show()
-
     }
 
     fun showToast(context: Context, message: String, duration: Int = Toast.LENGTH_LONG) {
@@ -149,9 +110,7 @@ object UiUtils {
         Log.d(TAG, content)
     }
     fun log(TAG: String?, content: String?) {
-        if (BuildConfig.DEBUG) {
-            Log.d(TAG, content!!)
-        }
+        Log.d(TAG, content!!)
     }
     fun loadCustomImage(imageView: ImageView?, imageUrl: String?){
         if (imageUrl == null || imageView == null) {

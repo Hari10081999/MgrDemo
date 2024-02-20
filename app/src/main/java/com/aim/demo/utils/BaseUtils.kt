@@ -46,10 +46,11 @@ import androidx.appcompat.widget.Toolbar
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
-import com.dr.mgr.BuildConfig
-import com.dr.mgr.R
-import com.dr.mgr.activity.*
-import com.dr.mgr.interfaces.DialogCallBack
+import androidx.multidex.BuildConfig
+import com.aim.demo.BaseActivity
+import com.aim.demo.DashBoardActivity
+import com.aim.demo.R
+import com.aim.demo.SplashActivity
 import com.dr.mgr.session.AppSharedPref
 import com.dr.mgr.session.Constants
 import com.dr.mgr.session.SharedHelper
@@ -489,35 +490,6 @@ object BaseUtils {
             }
         }
 
-        fun setActionBarThemeColor(actionBar: androidx.appcompat.app.ActionBar?, context: Context){
-
-            if (Constants.ApplicationConstants.ENABLE_DYNAMIC_THEME_COLOR && actionBar != null) {
-
-                val backgroundColor= if (AppSharedPref.getAppThemeColor(context).isNotEmpty()) {
-                    Color.parseColor(AppSharedPref.getAppThemeColor(context))
-                } else {
-                    ContextCompat.getColor(context, R.color.colorPrimary)
-                }
-
-                val foregroundColor = if (AppSharedPref.getAppThemeTextColor(context).isNotEmpty()) {
-                    Color.parseColor(AppSharedPref.getAppThemeTextColor(context))
-                } else {
-                    ContextCompat.getColor(context, R.color.colorPrimary)
-                }
-
-                actionBar.apply {
-                    val text = SpannableString(title ?: "")
-                    text.setSpan(ForegroundColorSpan(foregroundColor),0,text.length, Spannable.SPAN_INCLUSIVE_INCLUSIVE)
-                    val upArrow =ContextCompat.getDrawable(context, R.drawable.ic_back_arrow)
-                    upArrow?.colorFilter= PorterDuffColorFilter(foregroundColor, PorterDuff.Mode.SRC_ATOP)
-                    title = text
-                    setBackgroundDrawable(ColorDrawable(backgroundColor))
-                    setHomeAsUpIndicator(upArrow)
-                }
-
-            }
-        }
-
 
         fun setMenuItemIconColor(menu: Menu?, context: Context) {
             if (Constants.ApplicationConstants.ENABLE_DYNAMIC_THEME_COLOR && menu!=null) {
@@ -929,9 +901,9 @@ object BaseUtils {
                         it
                     )
                     takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
-                    val chatActivity:ChatActivity = activity as ChatActivity
-                    chatActivity.requestCode = Constants.RequestCode.CAMERA_REQUEST
-                    chatActivity.resultLauncher.launch(takePictureIntent)
+                   // val chatActivity:ChatActivity = activity as ChatActivity
+                   // chatActivity.requestCode = Constants.RequestCode.CAMERA_REQUEST
+                  //  chatActivity.resultLauncher.launch(takePictureIntent)
                     //activity.startActivityForResult(takePictureIntent, Constants.RequestCode.CAMERA_REQUEST)
                 }
             }
@@ -960,9 +932,9 @@ object BaseUtils {
                         it
                     )
                     takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
-                    val chatActivity:ChatActivity = activity as ChatActivity
+                    /*val chatActivity:ChatActivity = activity as ChatActivity
                     chatActivity.requestCode = Constants.RequestCode.VIDEO_REQUEST
-                    chatActivity.resultLauncher.launch(takePictureIntent)
+                    chatActivity.resultLauncher.launch(takePictureIntent)*/
                    // activity.startActivityForResult(takePictureIntent, Constants.RequestCode.VIDEO_REQUEST)
                 }
             }
@@ -1000,9 +972,9 @@ object BaseUtils {
             }
         }
 
-        val chatActivity:ChatActivity = activity as ChatActivity
+      /*  val chatActivity:ChatActivity = activity as ChatActivity
         chatActivity.requestCode = Constants.RequestCode.GALLERY_REQUEST
-        chatActivity.resultLauncher.launch(i)
+        chatActivity.resultLauncher.launch(i)*/
        // activity.startActivityForResult(i, Constants.RequestCode.GALLERY_REQUEST)
     }
     fun openGalleryFileManager(activity: Activity) {
@@ -1045,9 +1017,9 @@ object BaseUtils {
             }
         }
 
-        val chatActivity:ChatActivity = activity as ChatActivity
+       /* val chatActivity:ChatActivity = activity as ChatActivity
         chatActivity.requestCode = Constants.RequestCode.GALLERY_REQUEST
-        chatActivity.resultLauncher.launch(i)
+        chatActivity.resultLauncher.launch(i)*/
         //activity.startActivityForResult(i, Constants.RequestCode.GALLERY_REQUEST)
     }
     fun getFileTypeFromUri(uri: Uri,context: Context):String{
@@ -1425,57 +1397,6 @@ object BaseUtils {
             Select App Permissions -> Enable permission($name)
             """.trimIndent()
     }
-    fun displayManuallyEnablePermissionsDialog(activity: Activity,name: String,callBack: DialogCallBack?) {
-        val builder = AlertDialog.Builder(activity)
-        when (name) {
-            Constants.IntentKeys.LOCATION -> {
-                builder.setMessage(content(activity.getString(R.string.location)))
-            }
-            Constants.IntentKeys.CAMERA -> {
-                val msg = "${activity.getString(R.string.camera)}${","}${activity.getString(
-                    R.string.storage)}"
-                builder.setMessage(content(msg))
-            }
-            Constants.IntentKeys.GALLERY -> {
-                builder.setMessage(content(activity.getString(R.string.storage)))
-            }
-            Constants.IntentKeys.STORAGE -> {
-                builder.setMessage(content(activity.getString(R.string.storage)))
-            }
-            Constants.IntentKeys.PHONE -> {
-                builder.setMessage(content(activity.getString(R.string.call)))
-            }
-            Constants.IntentKeys.CONTACTS -> {
-                builder.setMessage(content("Contacts"))
-            }
-            Constants.IntentKeys.MIC -> {
-                builder.setMessage(content("MicroPhone"))
-            }
-            Constants.IntentKeys.SMS -> {
-                builder.setMessage(content("Sms"))
-            }
-            else -> {
-                val msg = "${activity.getString(R.string.location)}${","}${activity.getString(
-                    R.string.storage)}${","}${activity.getString(R.string.camera)}${","}${activity.getString(R.string.call)}"
-                builder.setMessage(content(msg))
-            }
-        }
-        builder.setCancelable(false)
-        builder.setPositiveButton(activity.getString(R.string.ok)) { dialog, _ ->
-            dialog.dismiss()
-            val intent = Intent()
-            intent.action = Settings.ACTION_APPLICATION_DETAILS_SETTINGS
-            val uri = Uri.fromParts("package", activity.packageName, null)
-            intent.data = uri
-            activity.startActivity(intent)
-            callBack?.onPositiveClick("")
-        }
-        builder.setNegativeButton(activity.getString(R.string.cancel)) { dialog, _ ->
-            dialog.dismiss()
-            callBack?.onNegativeClick()
-        }
-        builder.show()
-    }
     fun isGpsEnabled(activity: Activity): Boolean {
         val locationManager: LocationManager?
         locationManager = activity.applicationContext.getSystemService(Context.LOCATION_SERVICE) as LocationManager
@@ -1592,26 +1513,6 @@ object BaseUtils {
         return false
     }
 
-    fun isValidPassword(context: Context, password: String): String {
-        val specailCharPatten = Pattern.compile("[^a-z0-9 ]", Pattern.CASE_INSENSITIVE)
-        val upperCasePatten = Pattern.compile("[A-Z ]")
-        val lowerCasePatten = Pattern.compile("[a-z ]")
-        val digitCasePatten = Pattern.compile("[0-9 ]")
-
-        return if (password.length < 8) {
-            context.resources.getString(R.string.password_length_should_be_eight_characters)
-        } else if (!specailCharPatten.matcher(password).find()) {
-            context.resources.getString(R.string.password_should_contain_atleast_one_special_character)
-        } else if (!upperCasePatten.matcher(password).find()) {
-            context.resources.getString(R.string.password_should_contain_atleast_one_uppercase_character)
-        } else if (!lowerCasePatten.matcher(password).find()) {
-            context.resources.getString(R.string.password_should_contain_atleast_one_lowercase_character)
-        } /*else if (!digitCasePatten.matcher(password).find()) {
-            context.resources.getString(R.string.password_should_contain_atleast_one_numeric)
-        } */else {
-            "true"
-        }
-    }
     fun isValidEmail(email: String): Boolean {
         return Patterns.EMAIL_ADDRESS.matcher(email).matches()
     }
