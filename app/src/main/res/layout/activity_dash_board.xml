@@ -1,9 +1,96 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".DashBoardActivity">
+    android:background="@drawable/dash_bg_img">
 
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginHorizontal="24dp"
+        android:id="@+id/card"
+        android:layout_marginVertical="12dp"
+        app:cardBackgroundColor="@color/black"
+        app:cardCornerRadius="30dp">
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/nav_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/black"
+            app:itemIconTint="@drawable/selector_navigation"
+            app:labelVisibilityMode="unlabeled"
+            app:menu="@menu/bottom_menu" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:elevation="24dp"
+            android:id="@+id/lay"
+            android:background="@color/transparent"
+            android:weightSum="5">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:id="@+id/img_home"
+                android:layout_gravity="center"
+                android:visibility="visible"
+                android:src="@drawable/ic_home_selected"/>
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_gravity="center"
+                android:visibility="visible"
+                android:id="@+id/img_chat"
+                android:src="@drawable/ic_chat_selected"/>
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_gravity="center"
+                android:id="@+id/img_forum"
+                android:visibility="invisible"
+                android:clickable="false"
+                android:src="@drawable/ic_forum_selected"/>
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_gravity="center"
+                android:id="@+id/img_list"
+                android:visibility="visible"
+                android:src="@drawable/ic_list_selected"/>
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_gravity="center"
+                android:id="@+id/img_setting"
+                android:visibility="visible"
+                android:src="@drawable/ic_setting_selected"/>
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/vector"
+        android:elevation="24dp"
+        android:id="@+id/vector"
+        app:layout_constraintStart_toStartOf="@id/card"
+        app:layout_constraintEnd_toEndOf="@id/card"
+        app:layout_constraintBottom_toBottomOf="@id/card"
+        app:layout_constraintTop_toTopOf="@id/card"/>
+
+    <fragment
+        android:id="@+id/nav_host_fragment_container_main"
+        android:name="androidx.navigation.fragment.NavHostFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:defaultNavHost="true"
+        app:navGraph="@navigation/mobile_navigation"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -84,7 +84,8 @@ class SplashActivity : AppCompatActivity() {
         binding.animViewMain.setAnimation("splash_new.json")
         binding.animViewMain.playAnimation()
         key = intent.getIntExtra(Constants.IntentKeys.KEY,-1)
-        
+        //checkLogin()
+
         if(key == 0){
             loadPage1()
             val apiUrl = intent.getStringExtra(Constants.IntentKeys.KEY1).toString()

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/navigation_home">
+
+    <fragment
+        android:id="@+id/navigation_home"
+        android:name="com.android.e_library.fragment.HomeFragment"
+        android:label="Home"
+        tools:layout="@layout/fragment_home" >
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_chat"
+        android:name="com.android.e_library.fragment.LibraryFragment"
+        android:label="Chat"
+        tools:layout="@layout/fragment_library" />
+
+    <fragment
+        android:id="@+id/navigation_forum"
+        android:name="com.android.e_library.fragment.BookFragment"
+        android:label="Forum"
+        tools:layout="@layout/fragment_book" />
+
+   <!-- <fragment
+        android:id="@+id/navigation_class_list"
+        android:name="com.dr.mgr.fragment.ListFragment"
+        android:label="List"
+        tools:layout="@layout/fragment_list" />-->
+
+    <fragment
+        android:id="@+id/navigation_settings"
+        android:name="com.android.e_library.fragment.ProfileFragment"
+        android:label="Settings"
+        tools:layout="@layout/fragment_profile" />
+</navigation>

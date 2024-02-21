@@ -1,0 +1,35 @@
+package com.aim.demo.adapter
+
+import android.app.Activity
+import android.content.Intent
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
+import com.aim.demo.R
+import com.aim.demo.VideoActivity
+
+class categoryAdapter(private val videoItems: ArrayList<String>,var activity: Activity) : RecyclerView.Adapter<categoryAdapter.ViewHolder>() {
+
+    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        // Define views inside ViewHolder if needed
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.child_category, parent, false)
+        return ViewHolder(view)
+    }
+
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        holder.itemView.setOnClickListener {
+            val intent = Intent(activity, VideoActivity::class.java)
+            intent.putExtra("videoUrl", "")
+            activity.startActivity(intent)
+        }
+        // Bind other data to ViewHolder
+    }
+
+    override fun getItemCount(): Int {
+        return 5
+    }
+}

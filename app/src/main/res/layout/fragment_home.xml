@@ -1,0 +1,165 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_alignTop="@id/img"
+            android:layout_alignBottom="@id/img"
+            android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_20sp"
+                    android:textColor="@color/white"
+                    style="@style/FontBold"
+                    android:text="Welcome!"
+                    android:textSize="20sp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:textColor="@color/white"
+                    style="@style/FontBold"
+                    android:text="dummy"
+                    android:textSize="20sp"/>
+            </LinearLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_20sp"
+                android:textColor="@color/white"
+                style="@style/FontRegular"
+                android:text="would you like to learn?"
+                android:textSize="15sp"/>
+        </LinearLayout>
+        <ImageView
+            android:layout_width="140dp"
+            android:layout_height="140dp"
+            android:layout_marginStart="250dp"
+            android:id="@+id/img"
+            android:layout_marginTop="@dimen/_20sp"
+            android:src="@drawable/mgr_logo_library"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:hint="Search Video"
+            style="@style/FontMedium"
+            android:textSize="@dimen/_14sp"
+            android:inputType="text"
+            android:id="@+id/search"
+            android:layout_below="@id/img"
+            android:layout_marginHorizontal="@dimen/_20sp"
+            android:singleLine="true"
+            android:imeOptions="actionSearch"
+            android:drawableEnd="@drawable/ic_search"
+            android:drawablePadding="10dp"
+            android:gravity="start|center"
+            android:paddingVertical="12dp"
+            android:paddingHorizontal="20dp"
+            android:textColor="@color/grey"
+            android:background="@drawable/border_curve_8dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            android:layout_marginTop="16dp"
+            android:layout_below="@id/search"
+            android:layout_alignParentBottom="true"
+            style="@style/BottomSheet">
+
+            <androidx.core.widget.NestedScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="80dp"
+                    android:orientation="vertical">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_16sp"
+                        android:orientation="horizontal"
+                        tools:ignore="MissingConstraints">
+
+                        <TextView
+                            style="@style/FontMedium"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginStart="@dimen/_20sp"
+                            android:text="Category:"
+                            android:textColor="@color/black"
+                            android:textSize="15sp" />
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            tools:listitem="@layout/child_category"
+                            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                            android:id="@+id/categories"/>
+
+                    </LinearLayout>
+                    <LinearLayout
+                        android:id="@+id/linear_guest1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:paddingHorizontal="24dp"
+                        android:paddingBottom="16dp"
+                        android:visibility="visible"
+                        app:layout_constraintTop_toTopOf="parent">
+
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/categoryWiseVideos"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_20sp"
+                            android:orientation="horizontal"
+                            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                            tools:listitem="@layout/single_card_view" />
+
+                        <TextView
+                            android:id="@+id/title1"
+                            style="@style/FontBold"
+                            android:layout_marginTop="@dimen/_20sp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Previous Learned Topics"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_18sp"/>
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/previousPlayed"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            tools:listitem="@layout/progress_card_single"
+                            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                            android:layout_marginTop="12dp" />
+                    </LinearLayout>
+                </LinearLayout>
+            </androidx.core.widget.NestedScrollView>
+        </LinearLayout>
+    </RelativeLayout>
+</FrameLayout>
+
+
