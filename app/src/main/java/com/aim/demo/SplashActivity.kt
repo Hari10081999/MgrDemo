@@ -158,7 +158,7 @@ class SplashActivity : AppCompatActivity() {
 
         binding.getStarted1.setOnClickListener {
             if(binding.edtPhone.text.toString().isEmpty()){
-                UiUtils.showSnack("Please Enter Mobile Number/Mail",binding.root)
+                UiUtils.showSnack("Please Enter Mobile Number",binding.root)
             }
             /*else if(binding.edtPhone.text.length != 10){
                 UiUtils.showSnack("Please Enter Valid Mobile Number",binding.root)
@@ -186,31 +186,15 @@ class SplashActivity : AppCompatActivity() {
             }
         }
         binding.next1.setOnClickListener {
-            val code = binding.code1.text.toString()+binding.code2.text.toString()+binding.code3.text.toString()+binding.code4.text.toString()
-            val ccode = binding.ccode1.text.toString()+binding.ccode2.text.toString()+binding.ccode3.text.toString()+binding.ccode4.text.toString()
-            if(binding.code1.text.toString().isEmpty() || binding.code2.text.toString().isEmpty() || binding.code3.text.toString().isEmpty() || binding.code4.text.toString().isEmpty()){
-                UiUtils.showSnack("Please Enter PIN",binding.root)
-            }
-            else if(binding.ccode1.text.toString().isEmpty() || binding.ccode2.text.toString().isEmpty() || binding.ccode3.text.toString().isEmpty() || binding.ccode4.text.toString().isEmpty()){
-                UiUtils.showSnack("Please Enter Confirm PIN",binding.root)
-            }
-            else if(code != ccode){
-                UiUtils.showSnack("PIN Does not Match",binding.root)
-            }
-            else{
-                binding.txtPinSuccess.visibility = View.VISIBLE
-                sharedHelper.pin = ccode
-                loadSubPage3()
-            }
-        }
-
-        binding.later.setOnClickListener {
-            sharedHelper.isBioMetric = false
-            moveNext()
+            loadSubPage3()
         }
 
         binding.back.setOnClickListener {
             onBackPressed()
+        }
+
+        binding.next2.setOnClickListener {
+            moveNext()
         }
 
         binding.eye.setOnClickListener {
@@ -226,8 +210,8 @@ class SplashActivity : AppCompatActivity() {
         }
 
 
-        startSmsUserConsent()
-        bioMetric()
+      //  startSmsUserConsent()
+       // bioMetric()
         loadOtp()
         loadCode1()
         loadCode2()
@@ -258,7 +242,7 @@ class SplashActivity : AppCompatActivity() {
     }
 
     private fun verifyOtp(otp:String){
-        sharedHelper.loggedIn = true
+       // sharedHelper.loggedIn = true
         loadSubPage2()
     }
     
@@ -404,178 +388,11 @@ class SplashActivity : AppCompatActivity() {
     }
 
     private fun loadCode1(){
-        binding.code1.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {}
-            override fun onTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {}
-            override fun afterTextChanged(editable: Editable) {
-                if (editable.toString() != "") {
-                    binding.code2.isFocusable = true
-                    binding.code2.requestFocus()
-                    //  UiUtils.editTextBgDrawable(binding.otp1,R.drawable.otp_back)
-                }
-                else{
 
-                }
-            }
-        })
-        binding.code2.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {}
-            override fun onTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {}
-            override fun afterTextChanged(editable: Editable) {
-                if (editable.toString() != "") {
-                    binding.code3.isFocusable = true
-                    binding.code3.requestFocus()
-                    // UiUtils.editTextBgDrawable(binding.otp2,R.drawable.otp_back)
-                } else {
-                    binding.code1.isFocusable = true
-                    binding.code1.requestFocus()
-                }
-            }
-        })
-        binding.code3.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {}
-            override fun onTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {}
-            override fun afterTextChanged(editable: Editable) {
-                if (editable.toString() != "") {
-                    binding.code4.isFocusable = true
-                    binding.code4.requestFocus()
-                    // UiUtils.editTextBgDrawable(binding.otp3,R.drawable.otp_back)
-                } else {
-                    binding.code2.isFocusable = true
-                    binding.code2.requestFocus()
-                }
-            }
-        })
-        binding.code4.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {}
-            override fun onTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {}
-            override fun afterTextChanged(editable: Editable) {
-                if (editable.toString() != "") {
-                    binding.ccode1.isFocusable = true
-                    binding.ccode1.requestFocus()
-                    //  UiUtils.editTextBgDrawable(binding.otp4,R.drawable.otp_back)
-                } else {
-                    binding.code3.isFocusable = true
-                    binding.code3.requestFocus()
-                }
-            }
-        })
-
-        binding.code2.setOnKeyListener(View.OnKeyListener { view, i, _ ->
-            if (i == KeyEvent.KEYCODE_DEL) {
-                if (binding.code2.text.toString().isEmpty()) {
-                    binding.code1.setText("")
-                    binding.code1.requestFocus()
-                }
-            }
-            false
-        })
-        binding.code3.setOnKeyListener(View.OnKeyListener { view, i, _ ->
-            if (i == KeyEvent.KEYCODE_DEL) {
-                if (binding.code3.text.toString().isEmpty()) {
-                    binding.code2.setText("")
-                    binding.code2.requestFocus()
-                }
-            }
-            false
-        })
-        binding.code4.setOnKeyListener(View.OnKeyListener { view, i, _ ->
-            if (i == KeyEvent.KEYCODE_DEL) {
-                if (binding.code4.text.toString().isEmpty()) {
-                    binding.code3.setText("")
-                    binding.code3.requestFocus()
-                }
-            }
-            false
-        })
     }
 
     private fun loadCode2(){
-        binding.ccode1.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {}
-            override fun onTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {}
-            override fun afterTextChanged(editable: Editable) {
-                if (editable.toString() != "") {
-                    binding.ccode2.isFocusable = true
-                    binding.ccode2.requestFocus()
-                    //  UiUtils.editTextBgDrawable(binding.otp1,R.drawable.otp_back)
-                }
-                else{
-                    binding.code4.isFocusable = true
-                    binding.code4.requestFocus()
-                }
-            }
-        })
-        binding.ccode2.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {}
-            override fun onTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {}
-            override fun afterTextChanged(editable: Editable) {
-                if (editable.toString() != "") {
-                    binding.ccode3.isFocusable = true
-                    binding.ccode3.requestFocus()
-                    // UiUtils.editTextBgDrawable(binding.otp2,R.drawable.otp_back)
-                } else {
-                    binding.ccode1.isFocusable = true
-                    binding.ccode1.requestFocus()
-                }
-            }
-        })
-        binding.ccode3.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {}
-            override fun onTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {}
-            override fun afterTextChanged(editable: Editable) {
-                if (editable.toString() != "") {
-                    binding.ccode4.isFocusable = true
-                    binding.ccode4.requestFocus()
-                    // UiUtils.editTextBgDrawable(binding.otp3,R.drawable.otp_back)
-                } else {
-                    binding.ccode2.isFocusable = true
-                    binding.ccode2.requestFocus()
-                }
-            }
-        })
-        binding.ccode4.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {}
-            override fun onTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {}
-            override fun afterTextChanged(editable: Editable) {
-                if (editable.toString() != "") {
-                    binding.ccode4.isFocusable = true
-                    binding.ccode4.requestFocus()
-                    //  UiUtils.editTextBgDrawable(binding.otp4,R.drawable.otp_back)
-                } else {
-                    binding.ccode3.isFocusable = true
-                    binding.ccode3.requestFocus()
-                }
-            }
-        })
 
-        binding.ccode2.setOnKeyListener(View.OnKeyListener { view, i, _ ->
-            if (i == KeyEvent.KEYCODE_DEL) {
-                if (binding.ccode2.text.toString().isEmpty()) {
-                    binding.ccode1.setText("")
-                    binding.ccode1.requestFocus()
-                }
-            }
-            false
-        })
-        binding.ccode3.setOnKeyListener(View.OnKeyListener { view, i, _ ->
-            if (i == KeyEvent.KEYCODE_DEL) {
-                if (binding.ccode3.text.toString().isEmpty()) {
-                    binding.ccode2.setText("")
-                    binding.ccode2.requestFocus()
-                }
-            }
-            false
-        })
-        binding.ccode4.setOnKeyListener(View.OnKeyListener { view, i, _ ->
-            if (i == KeyEvent.KEYCODE_DEL) {
-                if (binding.ccode4.text.toString().isEmpty()) {
-                    binding.ccode3.setText("")
-                    binding.ccode3.requestFocus()
-                }
-            }
-            false
-        })
     }
 
     override fun onBackPressed() {
@@ -686,9 +503,8 @@ class SplashActivity : AppCompatActivity() {
         binding.subPage1.visibility = View.GONE
         binding.subPage2.visibility = View.VISIBLE
         binding.subPage3.visibility = View.GONE
-        binding.txtPinSuccess.visibility = View.GONE
         binding.subTitle.text = "2 of 3"
-        binding.title.text = "Set MPIN"
+        binding.title.text = "Create an Account"
         UiUtils.viewBgColor(binding.view1,null,R.color.colorPrimary)
         UiUtils.viewBgColor(binding.view2,null,R.color.colorPrimary)
         UiUtils.viewBgColor(binding.view3,"#E2E2E2",null)
@@ -699,7 +515,7 @@ class SplashActivity : AppCompatActivity() {
         binding.subPage2.visibility = View.GONE
         binding.subPage3.visibility = View.VISIBLE
         binding.subTitle.text = "3 of 3"
-        binding.title.text = "Set Touch ID"
+        binding.title.text = "Intrest Topics"
         UiUtils.viewBgColor(binding.view1,null,R.color.colorPrimary)
         UiUtils.viewBgColor(binding.view2,null,R.color.colorPrimary)
         UiUtils.viewBgColor(binding.view3,null,R.color.colorPrimary)
@@ -732,64 +548,6 @@ class SplashActivity : AppCompatActivity() {
         constraintSet.applyTo(mainConstraint)
     }
 
-    private fun bioMetric(){
-        var isBioMetric = false
-        val biometricManager: BiometricManager = BiometricManager.from(this)
-        when (biometricManager.canAuthenticate()) {
-            BiometricManager.BIOMETRIC_SUCCESS -> {
-                isBioMetric = true
-            }
-            BiometricManager.BIOMETRIC_ERROR_NO_HARDWARE -> {
-                isBioMetric = false
-            }
-            BiometricManager.BIOMETRIC_ERROR_HW_UNAVAILABLE -> {
-                isBioMetric = false
-            }
-            BiometricManager.BIOMETRIC_ERROR_NONE_ENROLLED -> {
-                isBioMetric = false
-            }
-        }
-        // creating a variable for our Executor
-        val executor: Executor = ContextCompat.getMainExecutor(this)
-        // this will give us result of AUTHENTICATION
-        val biometricPrompt = BiometricPrompt(this@SplashActivity, executor, object : BiometricPrompt.AuthenticationCallback() {
-                override fun onAuthenticationError(errorCode: Int, errString: CharSequence) {
-                    super.onAuthenticationError(errorCode, errString)
-                    UiUtils.imageViewTint(binding.imgFinger,null,R.color.red)
-                }
-                // THIS METHOD IS CALLED WHEN AUTHENTICATION IS SUCCESS
-                override fun onAuthenticationSucceeded(result: BiometricPrompt.AuthenticationResult) {
-                    super.onAuthenticationSucceeded(result)
-                    sharedHelper.isBioMetric = true
-                    UiUtils.imageViewTint(binding.imgFinger,null,R.color.green)
-                    moveNext()
-                }
-
-                override fun onAuthenticationFailed() {
-                    super.onAuthenticationFailed()
-                }
-            })
-
-        // creating a variable for our promptInfo
-        // BIOMETRIC DIALOG
-        val promptInfo = BiometricPrompt.PromptInfo.Builder().setTitle("MGR").setDescription("Use your fingerprint to login ").setNegativeButtonText("Cancel").build()
-
-        binding.next2.setOnClickListener {
-            if (isBioMetric) {
-                biometricPrompt.authenticate(promptInfo)
-            }
-            else {
-                val keyguardManager = getSystemService(KEYGUARD_SERVICE) as KeyguardManager
-                if (keyguardManager.isKeyguardSecure) {
-                    val intent = keyguardManager.createConfirmDeviceCredentialIntent(
-                        "MGR",
-                        "Use your auth to login"
-                    )
-                    startActivityForResult(intent, 100)
-                }
-            }
-        }
-    }
 
     fun checkLogin(){
         if(sharedHelper.loggedIn && (sharedHelper.isBioMetric || sharedHelper.role == "GUEST")){
@@ -821,7 +579,7 @@ class SplashActivity : AppCompatActivity() {
         if(requestCode == 100){
             if(resultCode == RESULT_OK){
                 sharedHelper.isBioMetric = true
-                UiUtils.imageViewTint(binding.imgFinger,null,R.color.green)
+                //UiUtils.imageViewTint(binding.imgFinger,null,R.color.green)
                 moveNext()
             }
         }

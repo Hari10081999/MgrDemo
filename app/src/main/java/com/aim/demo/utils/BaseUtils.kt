@@ -627,7 +627,7 @@ object BaseUtils {
         return value
     }
 
-    fun jsonChecker(json:JSONObject):JSONObject{
+   /* fun jsonChecker(json:JSONObject):JSONObject{
         val keys: MutableIterator<String> = json.keys()
         while (keys.hasNext()){
             val key = keys.next()
@@ -640,7 +640,7 @@ object BaseUtils {
             }
         }
         return json
-    }
+    }*/
 
     fun closeKeyBoard(editText: EditText, context: Context){
         editText.clearFocus()
