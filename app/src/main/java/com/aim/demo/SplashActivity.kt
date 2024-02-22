@@ -100,8 +100,6 @@ class SplashActivity : AppCompatActivity() {
             loadPage3()
         }
         else {
-            animation(this,binding.img,R.anim.animation_fade_in,true)
-/*
             binding.animViewMain.addAnimatorListener(object : Animator.AnimatorListener{
                 override fun onAnimationStart(p0: Animator) {
                 }
@@ -116,14 +114,13 @@ class SplashActivity : AppCompatActivity() {
                 override fun onAnimationRepeat(p0: Animator) {
                     if(count == 1){
                         count = 2
-
+                        checkLogin()
                     }
                     else if(count == 0){
                         count = 1
                     }
                 }
             })
-*/
         }
 
         binding.edtPhone.addTextChangedListener(object : TextWatcher {
@@ -454,7 +451,7 @@ class SplashActivity : AppCompatActivity() {
 
     private fun loadPage1(){
         page = 0
-       // binding.animViewMain.visibility = View.VISIBLE
+        binding.animViewMain.visibility = View.VISIBLE
         binding.top.visibility = View.VISIBLE
         binding.animViewTop.visibility = View.INVISIBLE
         binding.animViewSide.visibility = View.GONE
@@ -465,17 +462,17 @@ class SplashActivity : AppCompatActivity() {
         binding.page2.visibility = View.GONE
         binding.page3.visibility = View.GONE
 
-        binding.img.layoutParams.width = UiUtils.convertDpToPixel(286F,this).roundToInt()
-        binding.img.layoutParams.height = UiUtils.convertDpToPixel(286F,this).roundToInt()
+        binding.animViewMain.layoutParams.width = UiUtils.convertDpToPixel(286F,this).roundToInt()
+        binding.animViewMain.layoutParams.height = UiUtils.convertDpToPixel(286F,this).roundToInt()
         val mainConstraint = binding.mainConstraint
         val constraintSet = ConstraintSet()
         constraintSet.clone(mainConstraint)
-        constraintSet.clear(R.id.img,ConstraintSet.TOP)
-        constraintSet.connect(R.id.img,ConstraintSet.TOP,R.id.img,ConstraintSet.TOP)
-        constraintSet.clear(R.id.img,ConstraintSet.START)
-        constraintSet.connect(R.id.img,ConstraintSet.START,R.id.main_constraint,ConstraintSet.START)
-        constraintSet.clear(R.id.img,ConstraintSet.END)
-        constraintSet.connect(R.id.img,ConstraintSet.END,R.id.main_constraint,ConstraintSet.END)
+        constraintSet.clear(R.id.anim_view_main,ConstraintSet.TOP)
+        constraintSet.connect(R.id.anim_view_main,ConstraintSet.TOP,R.id.anim_view_main,ConstraintSet.TOP)
+        constraintSet.clear(R.id.anim_view_main,ConstraintSet.START)
+        constraintSet.connect(R.id.anim_view_main,ConstraintSet.START,R.id.main_constraint,ConstraintSet.START)
+        constraintSet.clear(R.id.anim_view_main,ConstraintSet.END)
+        constraintSet.connect(R.id.anim_view_main,ConstraintSet.END,R.id.main_constraint,ConstraintSet.END)
         constraintSet.applyTo(mainConstraint)
 
         binding.botCard.visibility = View.VISIBLE
@@ -485,7 +482,7 @@ class SplashActivity : AppCompatActivity() {
 
     private fun loadPage2(phone:String){
         page = 1
-       // binding.animViewMain.visibility = View.VISIBLE
+        binding.animViewMain.visibility = View.VISIBLE
         binding.top.visibility = View.VISIBLE
         binding.animViewTop.visibility = View.GONE
         binding.animViewSide.visibility = View.VISIBLE
@@ -505,16 +502,16 @@ class SplashActivity : AppCompatActivity() {
         binding.otp6.text.clear()
         binding.otp1.requestFocus()
 
-        binding.img.layoutParams.width = UiUtils.convertDpToPixel(160F,this).roundToInt()
-        binding.img.layoutParams.height = UiUtils.convertDpToPixel(160F,this).roundToInt()
+        binding.animViewMain.layoutParams.width = UiUtils.convertDpToPixel(160F,this).roundToInt()
+        binding.animViewMain.layoutParams.height = UiUtils.convertDpToPixel(160F,this).roundToInt()
         val mainConstraint = binding.mainConstraint
         val constraintSet = ConstraintSet()
         constraintSet.clone(mainConstraint)
-        constraintSet.clear(R.id.img,ConstraintSet.TOP)
-        constraintSet.connect(R.id.img,ConstraintSet.TOP,R.id.img,ConstraintSet.TOP)
-        constraintSet.clear(R.id.img,ConstraintSet.START)
-        constraintSet.clear(R.id.img,ConstraintSet.END)
-        constraintSet.connect(R.id.img,ConstraintSet.END,R.id.main_constraint,ConstraintSet.END)
+        constraintSet.clear(R.id.anim_view_main,ConstraintSet.TOP)
+        constraintSet.connect(R.id.anim_view_main,ConstraintSet.TOP,R.id.anim_view_main,ConstraintSet.TOP)
+        constraintSet.clear(R.id.anim_view_main,ConstraintSet.START)
+        constraintSet.clear(R.id.anim_view_main,ConstraintSet.END)
+        constraintSet.connect(R.id.anim_view_main,ConstraintSet.END,R.id.main_constraint,ConstraintSet.END)
         constraintSet.applyTo(mainConstraint)
         timer()
     }
@@ -555,7 +552,7 @@ class SplashActivity : AppCompatActivity() {
 
     private fun loadPage3(){
         page = 5
-       // binding.animViewMain.visibility = View.VISIBLE
+        binding.animViewMain.visibility = View.VISIBLE
         binding.top.visibility = View.VISIBLE
         binding.animViewTop.visibility = View.GONE
         binding.animViewSide.visibility = View.VISIBLE
@@ -567,16 +564,16 @@ class SplashActivity : AppCompatActivity() {
         binding.page3.visibility = View.VISIBLE
         binding.title.text = "Login"
 
-        binding.img.layoutParams.width = UiUtils.convertDpToPixel(160F,this).roundToInt()
-        binding.img.layoutParams.height = UiUtils.convertDpToPixel(160F,this).roundToInt()
+        binding.animViewMain.layoutParams.width = UiUtils.convertDpToPixel(160F,this).roundToInt()
+        binding.animViewMain.layoutParams.height = UiUtils.convertDpToPixel(160F,this).roundToInt()
         val mainConstraint = binding.mainConstraint
         val constraintSet = ConstraintSet()
         constraintSet.clone(mainConstraint)
-        constraintSet.clear(R.id.img,ConstraintSet.TOP)
-        constraintSet.connect(R.id.img,ConstraintSet.TOP,R.id.img,ConstraintSet.TOP)
-        constraintSet.clear(R.id.img,ConstraintSet.START)
-        constraintSet.clear(R.id.img,ConstraintSet.END)
-        constraintSet.connect(R.id.img,ConstraintSet.END,R.id.main_constraint,ConstraintSet.END)
+        constraintSet.clear(R.id.anim_view_main,ConstraintSet.TOP)
+        constraintSet.connect(R.id.anim_view_main,ConstraintSet.TOP,R.id.anim_view_main,ConstraintSet.TOP)
+        constraintSet.clear(R.id.anim_view_main,ConstraintSet.START)
+        constraintSet.clear(R.id.anim_view_main,ConstraintSet.END)
+        constraintSet.connect(R.id.anim_view_main,ConstraintSet.END,R.id.main_constraint,ConstraintSet.END)
         constraintSet.applyTo(mainConstraint)
     }
 
@@ -598,7 +595,7 @@ class SplashActivity : AppCompatActivity() {
         }
     }
     fun moveNext(){
-      //  binding.animViewMain.cancelAnimation()
+        binding.animViewMain.cancelAnimation()
         val bundle = Bundle()
        // bundle.putBoolean("isGuest",isGuest)
         BaseUtils.startActivity(this@SplashActivity,DashBoardActivity(),bundle,true)
@@ -611,7 +608,7 @@ class SplashActivity : AppCompatActivity() {
         if(requestCode == 100){
             if(resultCode == RESULT_OK){
                 sharedHelper.isBioMetric = true
-                //UiUtils.imageViewTint(binding.imgFinger,null,R.color.green)
+                //UiUtils.imageViewTint(binding.anim_view_mainFinger,null,R.color.green)
                 moveNext()
             }
         }

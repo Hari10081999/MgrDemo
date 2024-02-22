@@ -78,7 +78,7 @@
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/vector"
+        android:src="@drawable/center_play"
         android:elevation="24dp"
         android:id="@+id/vector"
         app:layout_constraintStart_toStartOf="@id/card"

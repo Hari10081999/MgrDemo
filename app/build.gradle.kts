@@ -133,16 +133,11 @@ dependencies {
     }
     implementation ("com.github.2coffees1team:GlideToVectorYou:v2.0.0")
 
-    //    exo player
-    implementation ("com.google.android.exoplayer:exoplayer-core:2.19.1")
-    implementation ("com.google.android.exoplayer:exoplayer-ui:2.19.1")
-
-    val mediaVersion = "1.2.1"
-
-    implementation ("androidx.media3:media3-exoplayer:$mediaVersion")
-    implementation ("androidx.media3:media3-ui:$mediaVersion")
-    implementation ("androidx.media3:media3-exoplayer-dash:$mediaVersion")
     implementation ("com.makeramen:roundedimageview:2.3.0")
     implementation ("androidx.navigation:navigation-fragment-ktx:2.5.3")
     implementation ("androidx.navigation:navigation-ui-ktx:2.5.3")
+
+    implementation ("com.google.android.exoplayer:exoplayer-core:2.18.1")
+    implementation ("com.google.android.exoplayer:exoplayer-ui:2.18.1")
+    implementation ("com.google.android.exoplayer:exoplayer-smoothstreaming:2.18.1")
 }

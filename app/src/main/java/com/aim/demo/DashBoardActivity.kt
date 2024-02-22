@@ -60,7 +60,7 @@ class DashBoardActivity : AppCompatActivity() {
 
         binding.vector.setOnClickListener{
             val intent = Intent(this, VideoActivity::class.java)
-            intent.putExtra("videoUrl", "")
+            intent.putExtra("videoUrl", "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4")
             startActivity(intent)
         }
     }
@@ -70,25 +70,25 @@ class DashBoardActivity : AppCompatActivity() {
         videoList.add(
             VideoItem(
                 "Video 1",
-                "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
+                "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
             )
         )
         videoList.add(
             VideoItem(
                 "Video 2",
-                "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4"
+                "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4"
             )
         )
         videoList.add(
             VideoItem(
                 "Video 3",
-                "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4"
+                "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4"
             )
         )
         videoList.add(
             VideoItem(
                 "Video 4",
-                "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4"
+                "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4"
             )
         )
         return videoList

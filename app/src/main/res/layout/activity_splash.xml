@@ -8,17 +8,17 @@
     android:background="@color/colorPrimary"
     android:id="@+id/main_constraint"
     tools:context=".SplashActivity">
-    <ImageView
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/anim_view_main"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_margin="24dp"
-        android:id="@+id/img"
-        android:padding="24dp"
-        android:src="@drawable/mgr_logo_library"/>
+        app:lottie_fileName="splash_new.json"
+        android:visibility="visible"
+        app:lottie_loop="true" />
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -97,7 +97,7 @@
                     style="@style/FontMedium"
                     android:layout_marginTop="24dp"
                     android:textSize="@dimen/_14sp"
-                    android:text="Welcome to Dr.M.G.R library World. Please create an account to access the E-Content"/>
+                    android:text="Dr.M.G.R Online Programs Admission Open for \nJuly - 2023 Batch"/>
                 <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -344,13 +344,13 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:layout_marginTop="39dp"
+                        android:layout_marginTop="16dp"
                         android:src="@drawable/validate_otp"/>
                     <com.google.android.material.button.MaterialButton
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         style="@style/FontSemiBold"
-                        android:layout_marginTop="40dp"
+                        android:layout_marginTop="16dp"
                         android:textAllCaps="false"
                         android:textSize="@dimen/_16sp"
                         app:cornerRadius="4dp"
