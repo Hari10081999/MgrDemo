@@ -4,6 +4,7 @@ import android.animation.Animator
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.KeyguardManager
+import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
@@ -16,6 +17,8 @@ import android.text.method.PasswordTransformationMethod
 import android.util.Log
 import android.view.KeyEvent
 import android.view.View
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
@@ -81,8 +84,8 @@ class SplashActivity : AppCompatActivity() {
             }
         }
 
-        binding.animViewMain.setAnimation("splash_new.json")
-        binding.animViewMain.playAnimation()
+       // binding.animViewMain.setAnimation("splash_new.json")
+       // binding.animViewMain.playAnimation()
         key = intent.getIntExtra(Constants.IntentKeys.KEY,-1)
         //checkLogin()
 
@@ -97,6 +100,8 @@ class SplashActivity : AppCompatActivity() {
             loadPage3()
         }
         else {
+            animation(this,binding.img,R.anim.animation_fade_in,true)
+/*
             binding.animViewMain.addAnimatorListener(object : Animator.AnimatorListener{
                 override fun onAnimationStart(p0: Animator) {
                 }
@@ -111,13 +116,14 @@ class SplashActivity : AppCompatActivity() {
                 override fun onAnimationRepeat(p0: Animator) {
                     if(count == 1){
                         count = 2
-                        checkLogin()
+
                     }
                     else if(count == 0){
                         count = 1
                     }
                 }
             })
+*/
         }
 
         binding.edtPhone.addTextChangedListener(object : TextWatcher {
@@ -220,6 +226,31 @@ class SplashActivity : AppCompatActivity() {
         // facebookLogin()
        // googleLogin()
        // hari()
+    }
+
+    fun animation(context: Context, view: View, type: Int, visible: Boolean){
+        val anim: Animation = AnimationUtils.loadAnimation(context,type)
+        anim.setAnimationListener(object : Animation.AnimationListener {
+            override fun onAnimationStart(p0: Animation?) {
+
+            }
+
+            override fun onAnimationEnd(p0: Animation?) {
+                if(visible){
+                    view.alpha = 1F
+                    view.visibility = View.VISIBLE
+                    checkLogin()
+                }
+                else{
+                    // view.alpha = 1F
+                    view.visibility = View.GONE
+                }
+            }
+            override fun onAnimationRepeat(p0: Animation?) {
+
+            }
+        })
+        view.startAnimation(anim)
     }
 
     private fun timer(){
@@ -423,7 +454,7 @@ class SplashActivity : AppCompatActivity() {
 
     private fun loadPage1(){
         page = 0
-        binding.animViewMain.visibility = View.VISIBLE
+       // binding.animViewMain.visibility = View.VISIBLE
         binding.top.visibility = View.VISIBLE
         binding.animViewTop.visibility = View.INVISIBLE
         binding.animViewSide.visibility = View.GONE
@@ -434,17 +465,17 @@ class SplashActivity : AppCompatActivity() {
         binding.page2.visibility = View.GONE
         binding.page3.visibility = View.GONE
 
-        binding.animViewMain.layoutParams.width = UiUtils.convertDpToPixel(286F,this).roundToInt()
-        binding.animViewMain.layoutParams.height = UiUtils.convertDpToPixel(286F,this).roundToInt()
+        binding.img.layoutParams.width = UiUtils.convertDpToPixel(286F,this).roundToInt()
+        binding.img.layoutParams.height = UiUtils.convertDpToPixel(286F,this).roundToInt()
         val mainConstraint = binding.mainConstraint
         val constraintSet = ConstraintSet()
         constraintSet.clone(mainConstraint)
-        constraintSet.clear(R.id.anim_view_main,ConstraintSet.TOP)
-        constraintSet.connect(R.id.anim_view_main,ConstraintSet.TOP,R.id.anim_view_main,ConstraintSet.TOP)
-        constraintSet.clear(R.id.anim_view_main,ConstraintSet.START)
-        constraintSet.connect(R.id.anim_view_main,ConstraintSet.START,R.id.main_constraint,ConstraintSet.START)
-        constraintSet.clear(R.id.anim_view_main,ConstraintSet.END)
-        constraintSet.connect(R.id.anim_view_main,ConstraintSet.END,R.id.main_constraint,ConstraintSet.END)
+        constraintSet.clear(R.id.img,ConstraintSet.TOP)
+        constraintSet.connect(R.id.img,ConstraintSet.TOP,R.id.img,ConstraintSet.TOP)
+        constraintSet.clear(R.id.img,ConstraintSet.START)
+        constraintSet.connect(R.id.img,ConstraintSet.START,R.id.main_constraint,ConstraintSet.START)
+        constraintSet.clear(R.id.img,ConstraintSet.END)
+        constraintSet.connect(R.id.img,ConstraintSet.END,R.id.main_constraint,ConstraintSet.END)
         constraintSet.applyTo(mainConstraint)
 
         binding.botCard.visibility = View.VISIBLE
@@ -454,7 +485,7 @@ class SplashActivity : AppCompatActivity() {
 
     private fun loadPage2(phone:String){
         page = 1
-        binding.animViewMain.visibility = View.VISIBLE
+       // binding.animViewMain.visibility = View.VISIBLE
         binding.top.visibility = View.VISIBLE
         binding.animViewTop.visibility = View.GONE
         binding.animViewSide.visibility = View.VISIBLE
@@ -474,16 +505,16 @@ class SplashActivity : AppCompatActivity() {
         binding.otp6.text.clear()
         binding.otp1.requestFocus()
 
-        binding.animViewMain.layoutParams.width = UiUtils.convertDpToPixel(160F,this).roundToInt()
-        binding.animViewMain.layoutParams.height = UiUtils.convertDpToPixel(160F,this).roundToInt()
+        binding.img.layoutParams.width = UiUtils.convertDpToPixel(160F,this).roundToInt()
+        binding.img.layoutParams.height = UiUtils.convertDpToPixel(160F,this).roundToInt()
         val mainConstraint = binding.mainConstraint
         val constraintSet = ConstraintSet()
         constraintSet.clone(mainConstraint)
-        constraintSet.clear(R.id.anim_view_main,ConstraintSet.TOP)
-        constraintSet.connect(R.id.anim_view_main,ConstraintSet.TOP,R.id.anim_view_main,ConstraintSet.TOP)
-        constraintSet.clear(R.id.anim_view_main,ConstraintSet.START)
-        constraintSet.clear(R.id.anim_view_main,ConstraintSet.END)
-        constraintSet.connect(R.id.anim_view_main,ConstraintSet.END,R.id.main_constraint,ConstraintSet.END)
+        constraintSet.clear(R.id.img,ConstraintSet.TOP)
+        constraintSet.connect(R.id.img,ConstraintSet.TOP,R.id.img,ConstraintSet.TOP)
+        constraintSet.clear(R.id.img,ConstraintSet.START)
+        constraintSet.clear(R.id.img,ConstraintSet.END)
+        constraintSet.connect(R.id.img,ConstraintSet.END,R.id.main_constraint,ConstraintSet.END)
         constraintSet.applyTo(mainConstraint)
         timer()
     }
@@ -524,7 +555,7 @@ class SplashActivity : AppCompatActivity() {
 
     private fun loadPage3(){
         page = 5
-        binding.animViewMain.visibility = View.VISIBLE
+       // binding.animViewMain.visibility = View.VISIBLE
         binding.top.visibility = View.VISIBLE
         binding.animViewTop.visibility = View.GONE
         binding.animViewSide.visibility = View.VISIBLE
@@ -536,16 +567,16 @@ class SplashActivity : AppCompatActivity() {
         binding.page3.visibility = View.VISIBLE
         binding.title.text = "Login"
 
-        binding.animViewMain.layoutParams.width = UiUtils.convertDpToPixel(160F,this).roundToInt()
-        binding.animViewMain.layoutParams.height = UiUtils.convertDpToPixel(160F,this).roundToInt()
+        binding.img.layoutParams.width = UiUtils.convertDpToPixel(160F,this).roundToInt()
+        binding.img.layoutParams.height = UiUtils.convertDpToPixel(160F,this).roundToInt()
         val mainConstraint = binding.mainConstraint
         val constraintSet = ConstraintSet()
         constraintSet.clone(mainConstraint)
-        constraintSet.clear(R.id.anim_view_main,ConstraintSet.TOP)
-        constraintSet.connect(R.id.anim_view_main,ConstraintSet.TOP,R.id.anim_view_main,ConstraintSet.TOP)
-        constraintSet.clear(R.id.anim_view_main,ConstraintSet.START)
-        constraintSet.clear(R.id.anim_view_main,ConstraintSet.END)
-        constraintSet.connect(R.id.anim_view_main,ConstraintSet.END,R.id.main_constraint,ConstraintSet.END)
+        constraintSet.clear(R.id.img,ConstraintSet.TOP)
+        constraintSet.connect(R.id.img,ConstraintSet.TOP,R.id.img,ConstraintSet.TOP)
+        constraintSet.clear(R.id.img,ConstraintSet.START)
+        constraintSet.clear(R.id.img,ConstraintSet.END)
+        constraintSet.connect(R.id.img,ConstraintSet.END,R.id.main_constraint,ConstraintSet.END)
         constraintSet.applyTo(mainConstraint)
     }
 
@@ -561,13 +592,13 @@ class SplashActivity : AppCompatActivity() {
             if(binding.top.visibility == View.GONE){
                 //  binding.animViewMain.clearAnimation()
                 //  binding.animViewMain.setAnimation("splash.json")
-                binding.animViewMain.playAnimation()
+               // binding.animViewMain.playAnimation()
                 loadPage1()
             }
         }
     }
     fun moveNext(){
-        binding.animViewMain.cancelAnimation()
+      //  binding.animViewMain.cancelAnimation()
         val bundle = Bundle()
        // bundle.putBoolean("isGuest",isGuest)
         BaseUtils.startActivity(this@SplashActivity,DashBoardActivity(),bundle,true)

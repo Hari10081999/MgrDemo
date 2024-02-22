@@ -8,17 +8,6 @@
     android:background="@color/colorPrimary"
     android:id="@+id/main_constraint"
     tools:context=".SplashActivity">
-    <com.airbnb.lottie.LottieAnimationView
-        android:id="@+id/anim_view_main"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:lottie_fileName="splash_new.json"
-        android:visibility="invisible"
-        app:lottie_loop="true" />
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -108,7 +97,7 @@
                     style="@style/FontMedium"
                     android:layout_marginTop="24dp"
                     android:textSize="@dimen/_14sp"
-                    android:text="Dr.M.G.R Online Programs Admission Open for \nJuly - 2023 Batch"/>
+                    android:text="Welcome to Dr.M.G.R library World. Please create an account to access the E-Content"/>
                 <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
