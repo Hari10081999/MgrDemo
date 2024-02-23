@@ -84,8 +84,8 @@ class SplashActivity : AppCompatActivity() {
             }
         }
 
-       // binding.animViewMain.setAnimation("splash_new.json")
-       // binding.animViewMain.playAnimation()
+        binding.animViewMain.setAnimation("splash_new.json")
+        binding.animViewMain.playAnimation()
         key = intent.getIntExtra(Constants.IntentKeys.KEY,-1)
         //checkLogin()
 
