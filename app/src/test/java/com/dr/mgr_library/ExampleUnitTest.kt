@@ -1,4 +1,4 @@
-package com.aim.demo
+package com.dr.mgr_library
 
 import org.junit.Test
 

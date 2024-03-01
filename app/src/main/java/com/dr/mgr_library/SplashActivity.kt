@@ -1,9 +1,8 @@
-package com.aim.demo
+package com.dr.mgr_library
 
 import android.animation.Animator
 import android.annotation.SuppressLint
 import android.app.Activity
-import android.app.KeyguardManager
 import android.content.Context
 import android.content.Intent
 import android.os.Build
@@ -25,11 +24,8 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.biometric.BiometricManager
-import androidx.biometric.BiometricPrompt
 import androidx.constraintlayout.widget.ConstraintSet
-import androidx.core.content.ContextCompat
-import com.aim.demo.databinding.ActivitySplashBinding
+import com.dr.mgr_library.databinding.ActivitySplashBinding
 import com.dr.mgr.session.Constants
 import com.dr.mgr.session.SharedHelper
 import com.dr.mgr.utils.BaseUtils
@@ -41,7 +37,6 @@ import com.google.android.gms.auth.api.phone.SmsRetriever
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.common.api.ApiException
 import java.util.*
-import java.util.concurrent.Executor
 import kotlin.math.roundToInt
 
 

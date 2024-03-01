@@ -1,25 +1,12 @@
-package com.aim.demo
+package com.dr.mgr_library
 
-import android.app.Dialog
-import android.app.KeyguardManager
 import android.content.Context
-import android.content.Intent
-import android.content.IntentFilter
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
-import android.net.ConnectivityManager
 import android.os.Bundle
 import android.util.Log
-import android.view.Gravity
-import android.view.LayoutInflater
 import android.view.View
 import android.widget.Toast
-import androidx.activity.result.ActivityResult
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.biometric.BiometricManager
-import androidx.biometric.BiometricPrompt
-import androidx.core.content.ContextCompat
 import com.dr.mgr.session.Constants.ApplicationConstants.SOCKET_BASE_URL
 import com.dr.mgr.session.SharedHelper
 import com.dr.mgr.utils.BaseUtils

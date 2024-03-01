@@ -1,28 +1,22 @@
-package com.aim.demo
+package com.dr.mgr_library
 
 import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.activity.OnBackPressedCallback
-import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.aim.demo.databinding.ActivityDashBoardBinding
+import com.dr.mgr_library.databinding.ActivityDashBoardBinding
 import com.android.e_library.adapter.VideoAdapter
-import com.android.e_library.fragment.BookFragment
-import com.android.e_library.fragment.HomeFragment
-import com.android.e_library.fragment.LibraryFragment
-import com.android.e_library.fragment.ProfileFragment
 import com.android.e_library.model.VideoItem
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.navigation.findNavController
-import com.aim.demo.adapter.CategoryVideoAdater
-import com.aim.demo.adapter.categoryAdapter
+import com.dr.mgr_library.adapter.CategoryVideoAdater
+import com.dr.mgr_library.adapter.categoryAdapter
 
 class DashBoardActivity : AppCompatActivity() {
     lateinit var binding: ActivityDashBoardBinding

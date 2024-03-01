@@ -1,10 +1,10 @@
-package com.aim.demo
+package com.dr.mgr_library
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.aim.demo.databinding.DetailListBinding
+import com.dr.mgr_library.databinding.DetailListBinding
 import com.android.e_library.adapter.VideoAdapter
 import com.android.e_library.model.VideoItem
 import com.google.android.exoplayer2.ExoPlayer

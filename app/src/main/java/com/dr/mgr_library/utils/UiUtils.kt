@@ -26,8 +26,8 @@ import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.graphics.BlendModeColorFilterCompat
 import androidx.core.graphics.BlendModeCompat
 import androidx.recyclerview.widget.RecyclerView
-import com.aim.demo.BaseActivity
-import com.aim.demo.R
+import com.dr.mgr_library.BaseActivity
+import com.dr.mgr_library.R
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
@@ -38,7 +38,6 @@ import com.dr.mgr.session.Constants
 import com.github.twocoffeesoneteam.glidetovectoryou.GlideToVectorYou
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.snackbar.Snackbar
-import com.google.android.material.snackbar.Snackbar.Callback
 import com.google.android.material.textfield.TextInputLayout
 import java.io.File
 import java.util.*

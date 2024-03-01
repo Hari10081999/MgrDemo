@@ -1,4 +1,4 @@
-package com.aim.demo.utils;
+package com.dr.mgr_library.utils;
 
 import android.annotation.SuppressLint;
 import android.content.ContentUris;

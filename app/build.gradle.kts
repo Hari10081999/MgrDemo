@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace = "com.aim.demo"
+    namespace = "com.dr.mgr_library"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.aim.demo"
+        applicationId = "com.dr.mgr_library"
         minSdk = 24
         targetSdk = 34
         versionCode = 1
