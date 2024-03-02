@@ -1,0 +1,87 @@
+
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="400dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/purple_bg"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/back"
+            android:layout_width="52dp"
+            android:layout_height="52dp"
+            android:layout_margin="@dimen/_20sp"
+            android:elevation="24dp"
+            android:src="@drawable/back_svg"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="90dp"
+            android:layout_marginStart="@dimen/_20sp"
+            android:textColor="@color/white"
+            style="@style/FontBold"
+            android:text="My favorite Videos"
+            android:textSize="20sp"/>
+
+        <ImageView
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:id="@+id/img"
+            android:visibility="invisible"
+            android:layout_alignParentEnd="true"
+            android:src="@drawable/mgr_logo_library"/>
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/anim_view_main"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_alignParentEnd="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:lottie_fileName="splash_new.json"
+            android:visibility="visible"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_marginTop="173dp"
+            style="@style/BottomSheet">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Favorites"
+                android:textSize="18sp"
+                android:fontFamily="@font/inter_semibold"
+                android:textColor="@color/black"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/favoriteRecycleView"
+                android:layout_width="match_parent"
+                android:layout_marginTop="@dimen/_10sp"
+                android:layout_marginHorizontal="@dimen/_20sp"
+                android:layout_height="match_parent"
+                tools:listitem="@layout/progress_card_single"
+                android:orientation="vertical"/>
+
+        </LinearLayout>
+    </RelativeLayout>
+</FrameLayout>

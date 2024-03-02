@@ -1,0 +1,170 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical">
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="400dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/purple_bg"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/back"
+            android:layout_width="52dp"
+            android:layout_height="52dp"
+            android:layout_margin="@dimen/_20sp"
+            android:elevation="24dp"
+            android:src="@drawable/back_svg"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="90dp"
+            android:layout_marginStart="@dimen/_20sp"
+            android:textColor="@color/white"
+            style="@style/FontBold"
+            android:text="List Of Users"
+            android:textSize="20sp"/>
+
+        <ImageView
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:id="@+id/img"
+            android:visibility="invisible"
+            android:layout_alignParentEnd="true"
+            android:src="@drawable/mgr_logo_library"/>
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/anim_view_main"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_alignParentEnd="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:lottie_fileName="splash_new.json"
+            android:visibility="visible"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_marginTop="173dp"
+            style="@style/BottomSheet">
+            <androidx.core.widget.NestedScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/page1">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingHorizontal="24dp"
+                    android:layout_marginBottom="26dp"
+                    android:orientation="vertical">
+
+                  <LinearLayout
+                      android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:layout_marginTop="@dimen/_20sp"
+                      android:layout_gravity="center"
+                      android:gravity="center"
+                      android:orientation="horizontal">
+                      <EditText
+                          android:layout_width="290dp"
+                          android:layout_height="50dp"
+                          android:hint="Search"
+                          style="@style/FontMedium"
+                          android:textSize="@dimen/_14sp"
+                          android:inputType="text"
+                          android:id="@+id/search"
+                          android:layout_below="@id/img"
+                          android:singleLine="true"
+                          android:imeOptions="actionSearch"
+                          android:drawableStart="@drawable/ic_search"
+                          android:drawablePadding="10dp"
+                          android:gravity="start|center"
+                          android:paddingVertical="12dp"
+                          android:paddingHorizontal="20dp"
+                          android:textColor="@color/grey"
+                          android:background="@drawable/border_line"/>
+                      <ImageView
+                          android:layout_width="44dp"
+                          android:layout_height="32dp"
+                          android:padding="5dp"
+                          android:layout_marginStart="5dp"
+                          android:background="@drawable/border_line_curve_6dp_grey"
+                          android:src="@drawable/filter"/>
+                  </LinearLayout>
+
+                    <RadioGroup
+                        android:id="@+id/radio_group"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:orientation="horizontal">
+
+                        <RadioButton
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:layout_gravity="center"
+                            android:textColor="@drawable/radio_text_color_change"
+                            android:background="@drawable/custom_radio_selector"
+                            android:button="@color/transparent"
+                            android:fontFamily="@font/inter_medium"
+                            android:gravity="center"
+                            android:text="Student"
+                            android:textSize="16sp"/>
+
+                        <RadioButton
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:layout_gravity="center"
+                            android:button="@color/transparent"
+                            android:fontFamily="@font/inter_medium"
+                            android:textColor="@drawable/radio_text_color_change"
+                            android:background="@drawable/custom_radio_selector"
+                            android:gravity="center"
+                            android:text="Professors"
+                            android:textSize="16sp" />
+
+                        <RadioButton
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:layout_gravity="center"
+                            android:textColor="@drawable/radio_text_color_change"
+                            android:background="@drawable/custom_radio_selector"
+                            android:button="@color/transparent"
+                            android:fontFamily="@font/inter_medium"
+                            android:gravity="center"
+                            android:text="Contents"
+                            android:textSize="16sp" />
+                    </RadioGroup>
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/listOfUserView"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        tools:listitem="@layout/student_card"/>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:layout_width="match_parent"
+                        android:visibility="gone"
+                        android:layout_height="match_parent"
+                        tools:listitem="@layout/content_card"
+                        android:orientation="vertical"/>
+                </LinearLayout>
+            </androidx.core.widget.NestedScrollView>
+        </LinearLayout>
+    </RelativeLayout>
+</FrameLayout>

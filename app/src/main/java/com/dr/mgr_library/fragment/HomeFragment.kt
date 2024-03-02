@@ -1,51 +1,70 @@
-package com.android.e_library.fragment
+package com.dr.mgr_library.fragment
 
+import android.app.Notification
+import android.app.NotificationManager
+import android.app.PendingIntent
+import android.content.Context
+import android.content.Intent
+import android.graphics.Color
+import android.media.RingtoneManager
 import android.os.Bundle
+import android.os.Handler
+import android.text.Editable
+import android.text.SpannableString
+import android.text.TextWatcher
+import android.text.style.UnderlineSpan
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
+import android.widget.TextView
+import androidx.core.app.NotificationCompat
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.android.e_library.adapter.VideoAdapter
+import com.dr.mgr.session.Constants
+import com.dr.mgr.session.SharedHelper
+import com.dr.mgr.utils.BaseUtils
+import com.dr.mgr.utils.UiUtils
+import com.dr.mgr_library.DashBoardActivity
 import com.dr.mgr_library.R
+import com.dr.mgr_library.adapter.CategoryVideoAdater
+import com.dr.mgr_library.adapter.categoryAdapter
+import com.dr.mgr_library.databinding.FragmentHomeBinding
+import com.google.gson.Gson
+import okhttp3.Call
+import okhttp3.Callback
+import okhttp3.OkHttpClient
+import org.jetbrains.anko.support.v4.runOnUiThread
+import org.json.JSONArray
+import org.json.JSONObject
+import java.io.IOException
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [HomeFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class HomeFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+    lateinit var binding: FragmentHomeBinding
+    lateinit var mActivity: DashBoardActivity
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        binding = FragmentHomeBinding.inflate(inflater, container, false)
+        val view = binding.root
+        mActivity = activity as DashBoardActivity
+//        mActivity.selectBottomNav(0)
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home, container, false)
-    }
+        val recyclerView: RecyclerView = binding.previousPlayed
+        recyclerView.layoutManager = LinearLayoutManager(mActivity,LinearLayoutManager.VERTICAL,false)
+        recyclerView.adapter = VideoAdapter(mActivity.createVideoList(),mActivity)
 
-    companion object {
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            HomeFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+        val recyclerView1: RecyclerView = binding.categories
+        recyclerView1.layoutManager = LinearLayoutManager(mActivity,LinearLayoutManager.HORIZONTAL,false)
+        recyclerView1.adapter = categoryAdapter(ArrayList(),mActivity)
+
+        val recyclerView2: RecyclerView = binding.categoryWiseVideos
+        recyclerView2.layoutManager = LinearLayoutManager(mActivity,LinearLayoutManager.HORIZONTAL,false)
+        recyclerView2.adapter = CategoryVideoAdater(ArrayList(),mActivity)
+
+        return view
     }
 }

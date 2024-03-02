@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:gravity="start|center"
+        android:background="@drawable/no_curve_border"
+        android:orientation="horizontal">
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/profile_banner"/>
+
+        <LinearLayout
+            android:layout_width="280dp"
+            android:layout_height="100dp"
+            android:gravity="start|center"
+            android:layout_marginStart="@dimen/_10sp"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="karthick"
+                android:id="@+id/name"
+                android:textSize="@dimen/_14sp"
+                style="@style/FontSemiBold"
+                android:textColor="@color/black"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="karthick@gmail.com"
+                android:id="@+id/gmail"
+                android:textSize="@dimen/_14sp"
+                style="@style/FontSemiBold"
+                android:textColor="@color/black"/>
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:src="@drawable/ic_arrow_forward"
+            android:scaleX="1.5"
+            android:scaleY="1.5"/>
+    </LinearLayout>
+</LinearLayout>

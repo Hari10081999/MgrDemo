@@ -13,4 +13,6 @@
     <color name="green">#28C76F</color>
     <color name="light_green">#C0FFCA</color>
     <color name="hint_color2">#CBD5E0</color>
+    <color name="light_purple">#e2dae3</color>
+    <color name="Light_grey">#B8B8B8</color>
 </resources>

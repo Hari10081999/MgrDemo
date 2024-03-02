@@ -4,6 +4,13 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import android.view.Gravity
+import android.view.View
+import android.view.WindowManager
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentTransaction
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
@@ -15,51 +22,66 @@ import com.android.e_library.adapter.VideoAdapter
 import com.android.e_library.model.VideoItem
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.navigation.findNavController
+import com.android.e_library.fragment.BookFragment
+import com.android.e_library.fragment.LibraryFragment
+import com.android.e_library.fragment.ProfileFragment
+import com.dr.mgr.utils.BaseUtils
 import com.dr.mgr_library.adapter.CategoryVideoAdater
 import com.dr.mgr_library.adapter.categoryAdapter
+import com.dr.mgr_library.fragment.HomeFragment
+import com.piechips.user.models.FragmentModel
 
 class DashBoardActivity : AppCompatActivity() {
     lateinit var binding: ActivityDashBoardBinding
-    private lateinit var navHostFragment: NavHostFragment
-    var navView: BottomNavigationView? = null
-    var navController: NavController? = null
+    lateinit var fragmentTransaction: FragmentTransaction
+    var fragArray: ArrayList<FragmentModel> = ArrayList()
+    var homefragment: HomeFragment = HomeFragment()
+    var libraryFragment: LibraryFragment = LibraryFragment()
+    var bookFragment:BookFragment = BookFragment()
+    var profileFragment:ProfileFragment = ProfileFragment()
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityDashBoardBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        navView = binding.navView
+        addFragment(homefragment, null,0)
 
-        navController = findNavController(R.id.nav_host_fragment_container_main)
-        val appBarConfiguration = AppBarConfiguration(setOf(
-            R.id.navigation_home,
-            R.id.navigation_chat,
-            R.id.navigation_forum,
-            R.id.navigation_settings
-        ))
-        NavigationUI.setupWithNavController(binding.navView, navController!!)
+        binding.imgHome.setOnClickListener {
+            addFragment(homefragment, null,0)
+        }
 
-        val recyclerView: RecyclerView = findViewById(R.id.previousPlayed)
-        recyclerView.layoutManager = LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false)
-        recyclerView.adapter = VideoAdapter(createVideoList(),this)
-
-        val recyclerView1: RecyclerView = findViewById(R.id.categories)
-        recyclerView1.layoutManager = LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false)
-        recyclerView1.adapter = categoryAdapter(ArrayList(),this)
-
-        val recyclerView2: RecyclerView = findViewById(R.id.categoryWiseVideos)
-        recyclerView2.layoutManager = LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false)
-        recyclerView2.adapter = CategoryVideoAdater(ArrayList(),this)
+        binding.imgChat.setOnClickListener {
+            addFragment(libraryFragment, null,1)
+        }
 
         binding.vector.setOnClickListener{
             val intent = Intent(this, VideoActivity::class.java)
             intent.putExtra("videoUrl", "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4")
             startActivity(intent)
         }
+
+        binding.imgList.setOnClickListener {
+            addFragment(bookFragment, null,3)
+        }
+
+        binding.imgSetting.setOnClickListener {
+            addFragment(profileFragment, null,4)
+        }
     }
 
-    private fun createVideoList(): List<VideoItem> {
+    fun addFragment(fragment: Fragment, bundle: Bundle?, bnavid: Int){
+        if(!fragment.isVisible){
+            BaseUtils.hideForceKeyboard(binding.root)
+            fragArray.add(fragArray.size,FragmentModel(bnavid,fragment))
+            fragment.arguments = bundle
+            fragmentTransaction = supportFragmentManager.beginTransaction()
+            fragmentTransaction.replace(R.id.container, fragment,fragment.javaClass.name)
+            fragmentTransaction.addToBackStack(null)
+            fragmentTransaction.commit()
+        }
+    }
+    fun createVideoList(): List<VideoItem> {
         val videoList = mutableListOf<VideoItem>()
         videoList.add(
             VideoItem(
@@ -86,5 +108,15 @@ class DashBoardActivity : AppCompatActivity() {
             )
         )
         return videoList
+    }
+
+    override fun onBackPressed() {
+        if(homefragment.isVisible){
+           // super.onBackPressed()
+            finish()
+        }
+        else{
+            addFragment(homefragment, null,0)
+        }
     }
 }

@@ -1,0 +1,298 @@
+
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="400dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/purple_bg"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/back"
+            android:layout_width="52dp"
+            android:layout_height="52dp"
+            android:layout_margin="@dimen/_20sp"
+            android:elevation="24dp"
+            android:src="@drawable/back_svg"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="90dp"
+            android:layout_marginStart="@dimen/_20sp"
+            android:textColor="@color/white"
+            style="@style/FontBold"
+            android:text="Add Content"
+            android:textSize="20sp"/>
+
+        <ImageView
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:id="@+id/img"
+            android:visibility="invisible"
+            android:layout_alignParentEnd="true"
+            android:src="@drawable/mgr_logo_library"/>
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/anim_view_main"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_alignParentEnd="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:lottie_fileName="splash_new.json"
+            android:visibility="visible"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_marginTop="173dp"
+            style="@style/BottomSheet">
+            <androidx.core.widget.NestedScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/page1">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingHorizontal="24dp"
+                    android:layout_marginBottom="26dp"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        style="@style/FontBold"
+                        android:layout_marginTop="24dp"
+                        android:textSize="@dimen/_22sp"
+                        android:text="Add Content"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/grey"
+                        style="@style/FontRegular"
+                        android:layout_marginTop="5dp"
+                        android:textSize="@dimen/_14sp"
+                        android:text="Fill the Details"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_10sp"
+                        android:textColor="@color/black"
+                        android:fontFamily="@font/inter_semibold"
+                        android:textSize="16sp"
+                        android:text="Title"/>
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        app:cardElevation="0dp"
+                        app:cardBackgroundColor="#F5F5F5"
+                        app:cardCornerRadius="6dp">
+                        <EditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@null"
+                            android:hint="Financial Marketing"
+                            style="@style/FontMedium"
+                            android:textSize="@dimen/_16sp"
+                            android:id="@+id/name"
+                            android:textColor="@color/black"
+                            android:textColorHint="#747474"
+                            android:paddingVertical="14dp"
+                            android:paddingHorizontal="16dp"
+                            android:inputType="text"/>
+                    </androidx.cardview.widget.CardView>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_10sp"
+                        android:textColor="@color/black"
+                        android:fontFamily="@font/inter_semibold"
+                        android:textSize="16sp"
+                        android:text="Description"/>
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        app:cardElevation="0dp"
+                        app:cardBackgroundColor="#F5F5F5"
+                        app:cardCornerRadius="6dp">
+                        <EditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@null"
+                            android:hint="Empower your financial journey Empower your financial ...  "
+                            style="@style/FontMedium"
+                            android:textSize="@dimen/_16sp"
+                            android:id="@+id/email"
+                            android:textColor="@color/black"
+                            android:textColorHint="#747474"
+                            android:paddingVertical="14dp"
+                            android:paddingHorizontal="16dp"
+                            android:inputType="text"/>
+                    </androidx.cardview.widget.CardView>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_10sp"
+                        android:textColor="@color/black"
+                        android:fontFamily="@font/inter_semibold"
+                        android:textSize="16sp"
+                        android:text="Category"/>
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        app:cardElevation="0dp"
+                        app:cardBackgroundColor="#F5F5F5"
+                        app:cardCornerRadius="6dp">
+                        <Spinner
+                            android:id="@+id/spinner"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/black"
+                            android:textColorHint="#747474"
+                            android:paddingVertical="14dp"
+                            android:paddingHorizontal="16dp"/>
+
+                    </androidx.cardview.widget.CardView>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_10sp"
+                        android:textColor="@color/black"
+                        android:fontFamily="@font/inter_semibold"
+                        android:textSize="16sp"
+                        android:text="Video Type"/>
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        app:cardElevation="0dp"
+                        app:cardBackgroundColor="#F5F5F5"
+                        app:cardCornerRadius="6dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:weightSum="2"
+                            android:orientation="horizontal">
+
+                            <RadioButton
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="@null"
+                                android:text="File"
+                                style="@style/FontMedium"
+                                android:button="@drawable/rounded_radio_button"
+                                android:gravity="center"
+                                android:paddingVertical="14dp"
+                                android:paddingHorizontal="16dp"
+                                android:layout_weight="1"
+                                android:checked="true"
+                                android:textSize="@dimen/_16sp"
+                                android:id="@+id/radio_student"
+                                android:textColor="@color/black"/>
+                            <RadioButton
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="@null"
+                                android:text="Link"
+                                android:paddingVertical="14dp"
+                                android:paddingHorizontal="16dp"
+                                android:button="@drawable/rounded_radio_button"
+                                style="@style/FontMedium"
+                                android:gravity="center"
+                                android:textSize="@dimen/_16sp"
+                                android:layout_weight="1"
+                                android:id="@+id/radio_teacher"
+                                android:textColor="@color/black"/>
+                        </LinearLayout>
+
+                    </androidx.cardview.widget.CardView>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:layout_marginTop="@dimen/_10sp"
+                        android:fontFamily="@font/inter_semibold"
+                        android:textSize="16sp"
+                        android:text="Add new files"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="170dp"
+                        android:layout_marginTop="@dimen/_10sp"
+                        android:background="@drawable/dashed_border_line"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="40dp"
+                            android:src="@drawable/paper_upload"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/black"
+                            android:fontFamily="@font/inter_medium"
+                            android:layout_marginTop="@dimen/_10sp"
+                            android:layout_gravity="center"
+                            android:text="@string/drag_drop_or_choose_file_to_upload"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/grey"
+                            android:fontFamily="@font/inter_regular"
+                            android:layout_marginTop="5dp"
+                            android:layout_gravity="center"
+                            android:text="Select zip,image,pdf or ms.word"/>
+
+
+                    </LinearLayout>
+
+                    <com.google.android.material.button.MaterialButton
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        style="@style/FontBold"
+                        android:layout_marginTop="30dp"
+                        android:textAllCaps="false"
+                        android:textSize="@dimen/_16sp"
+                        app:cornerRadius="10dp"
+                        android:id="@+id/proceed"
+                        android:backgroundTint="@color/black"
+                        android:text="Next"
+                        android:paddingVertical="15dp"
+                        android:textColor="@color/white"/>
+
+                </LinearLayout>
+            </androidx.core.widget.NestedScrollView>
+
+        </LinearLayout>
+
+
+    </RelativeLayout>
+
+
+
+
+</FrameLayout>
